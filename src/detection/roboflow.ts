@@ -1,7 +1,6 @@
-//TODO use import roboflow-js instead of importing inferencejs in the head section of the html component in layout.jsx
-//See https://github.com/roboflow/inferencejs-react-example/blob/main/src/App.js
-
-import { useEffect, useState } from "react";
+import { InferenceEngine, CVImage, Prediction, Predictions } from "inferencejs";
+import { RefObject, useEffect, useMemo, useState } from "react";
+import Webcam from "react-webcam";
 
 export type ModelConfig = {
   modelAPIKey: string;    //API key
@@ -11,21 +10,9 @@ export type ModelConfig = {
   minConfidence : number; //minimum confidence for a detection to be considered
 };
 
-export type Prediction = {
-  detection_id: string;
-  class: string;
-  confidence: number;
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-}
-export type Predictions = Prediction[];
-//window.roboflow = roboflow;
-
 export function createModelConfig ():ModelConfig {
     return {
-        modelAPIKey: "rf_MCMc7RN8h5hcIv9dNe90cKzG7aq1",
+        modelAPIKey: process.env.NEXT_PUBLIC_ROBOFLOW_API_KEY as string,
         model: "belote-cards-detection",
         version: "7",
         frequency: 1000,
@@ -33,50 +20,51 @@ export function createModelConfig ():ModelConfig {
     };
 }
 
-export default function useRoboflowModel (modelConfig:ModelConfig, inferRunning:boolean, video:any) {
+export default function useRoboflowModel (modelConfig:ModelConfig, inferRunning:boolean, videoRef:RefObject<Webcam>) {
     const [model, setModel] = useState(null);
     const [predictions, setPredictions] = useState<Predictions>([]);
     const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
     const frequency = modelConfig.frequency
+    const [modelLaoding, setModelLoading] = useState<boolean>(false);
 
-    useEffect (() => {
-      window.roboflow.auth({ publishable_key: modelConfig.modelAPIKey }).load({ model: modelConfig.model, version: modelConfig.version })
-      .then(function(model:any) {
-        // model has loaded!
-        setModel(model);
-      })
-      .catch(function(error:Error) {
-        console.error(error);
-        setModel(null);
-      });
+    const inferEngine = useMemo(() => { 
+      return new InferenceEngine();
     }, []);
 
-    useEffect (() => {
-        if (inferRunning && model) {
+    useEffect(() => {
+      if (!modelLaoding) {
+        setModelLoading(true);
+        inferEngine.startWorker(modelConfig.model, modelConfig.version, modelConfig.modelAPIKey)
+        .then ((model:any) => setModel(model))
+        .catch((error:Error) => console.error(error));
+      }
+    }, [modelConfig, modelLaoding, inferEngine]);
+
+    useEffect(() => {
+      if (inferRunning && model) {
           // Start inferencing loop evey {frequency} ms
           const t = setInterval(() => {
             detect(model);
           }, frequency);
           setTimer(t);
-        } else {
+      } else {
           if (model) {
             clearInterval(timer as NodeJS.Timeout);
             setTimer(null);
           } 
         }
-    }, [inferRunning]);
+    }, [model, inferRunning]);
 
     async function detect(model:any) {
         // Check data is available
-        if (typeof video !== "undefined" && video !== null) {
-          //TODO : remove this if not needed
-          /*        const videoWidth = webcamRef.current.video.videoWidth;
-            const videoHeight = webcamRef.current.video.videoHeight;
-            webcamRef.current.video.width = videoWidth;
-            webcamRef.current.video.height = videoHeight;
-    */
-            const detections = await model.detect(video) as Predictions;
+        if (typeof videoRef !== "undefined" && videoRef !== null && videoRef.current?.video?.readyState === 4) {
+          const img = new CVImage(videoRef.current?.video);
+          console.info("model", model, 'is detecting...');
+          inferEngine.infer (model, img)
+          .then((detections:Predictions) => {
             setPredictions(predictions => appendPredictions(predictions, detections));
+          })
+          .catch((error:Error) => console.error(error));
         }
     }
 

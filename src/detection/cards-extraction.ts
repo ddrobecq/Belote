@@ -1,16 +1,28 @@
 import { Cards, Card, Rank, Suit } from '@/cards';
-import { Predictions } from '@/detection/roboflow';
+import { Predictions } from 'inferencejs';
 
-export default function cardsExtraction (predictions:Predictions):Cards {
-    //todo : get trump from the user
-    const trump:Suit = "H";
+export default function cardsExtraction (predictions:Predictions, trump:Suit):Cards {
     let cards:Cards = [];
     predictions.forEach(prediction => {
-        let card:Card = {
-            rank: prediction.class[0] as Rank,
-            suit: prediction.class[1] as Suit,
-            value: 0
-        };   
+        let card:Card;
+        switch (prediction.class.length) {
+            case 2:
+                card = {
+                    rank: prediction.class[0] as Rank,
+                    suit: prediction.class[1] as Suit,
+                    value: 0
+                };
+                break;
+            case 3:
+                card = {
+                    rank: (prediction.class[0]+prediction.class[1]) as Rank,
+                    suit: prediction.class[2] as Suit,
+                    value: 0
+                };
+                break;
+            default:
+                throw new Error("Invalid card prediction");
+        }
         card.value = getCardValue(card, trump);
         cards.push(card);
     });

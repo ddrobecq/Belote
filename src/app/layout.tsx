@@ -14,9 +14,6 @@ export const metadata: Metadata = {
 export default function RootLayout({children,}: Readonly<{children: React.ReactNode;}>) {
   return (
     <html lang="fr">
-      <head>
-        <script id="roboflowScript" src="https://cdn.roboflow.com/0.2.26/roboflow.js"></script>
-      </head>
       <body >
         <AppRouterCacheProvider>
           <ThemeModeContextProvider>

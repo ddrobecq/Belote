@@ -16,7 +16,7 @@ type VideoStreamCaptureProps = {
 export default function VideoStreamCapture (props: VideoStreamCaptureProps) {
   const webcamRef = useRef<Webcam>(null);
   const [inferRunning, setInferRunning] = useState(false);
-  const [model, predictions] = useRoboflowModel(props.modelConfig, inferRunning, webcamRef?.current?.video);
+  const [model, predictions] = useRoboflowModel(props.modelConfig, inferRunning, webcamRef);
   const [facingMode, setFacingMode] = useState<VideoCaptureMode>("environment");
   
   function onClose() {

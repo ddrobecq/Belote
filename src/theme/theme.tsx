@@ -77,7 +77,7 @@ const defaultComponents:Components = {
     },
     styleOverrides: {
       root: {
-        borderRadius: 5,
+        borderRadius: 10,
       },
     },
   },

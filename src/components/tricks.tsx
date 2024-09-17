@@ -44,7 +44,7 @@ export default function Tricks () {
     }, [cards]);
   
     return (
-        <Stack direction={'column'} spacing={2} >
+        <Stack direction={'column'} spacing={1} >
             <Bid />
             <Trump />
             <Der />
@@ -54,3 +54,4 @@ export default function Tricks () {
         </Stack>
     )
 }
+

@@ -1,5 +1,6 @@
 import { Stack, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { useState } from "react";
+import TricksCard from "./tricks-card";
 
 type Der = 1 | 2
 
@@ -12,11 +13,13 @@ export default function Der () {
     }
 
     return (
-        <Stack>
+        <TricksCard title={"Qui a remporté le Dix de Der ?"} >
             <ToggleButtonGroup exclusive value={der} onChange={onChange} color='primary'>
-                <ToggleButton value={1} >Equipe 1</ToggleButton>
-                <ToggleButton value={2} >Equipe 2</ToggleButton>
+                <Stack sx={{ width:"100%" }} direction={'row'} justifyContent={'space-evenly'} >
+                    <ToggleButton value={1} >Equipe 1</ToggleButton>
+                    <ToggleButton value={2} >Equipe 2</ToggleButton>
+                </Stack>
             </ToggleButtonGroup>
-        </Stack>
+        </TricksCard>
     );
 }

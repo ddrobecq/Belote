@@ -1,10 +1,13 @@
 'use client';
 
 import React from 'react';
-import Tricks from '@/components/tricks';
+import GameResult from '@/components/game-result';
+import GamesContextProvider from '@/context/games-context';
 
 export default function Home(): React.ReactNode {
   return (
-    <Tricks />
+    <GamesContextProvider >
+      <GameResult />
+    </GamesContextProvider>
   )
 }

@@ -1,4 +1,4 @@
-import { GamesClass } from "./games-class";
+import { GamesClass } from "../logic/games-class";
 
 export type DerChoice = 1 | 2;
 export type BeloteChoice = 1 | 2 | 0;

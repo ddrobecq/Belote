@@ -70,31 +70,30 @@ export function initGame(): Games {
             this.team1.contracted = (team === 1);
             this.team2.contracted = (team === 2);
         },
-        updateTricks (tricks1: number, tricks2: number) {
-            this.team1.tricks = tricks1;
-            this.team2.tricks = tricks2;
+        updateTricks (team: number, tricks: number) {
+            const bid = 162-10;
+            //bid = (this.bid*2) - 10;
+            if (team === 1) {
+                this.team1.tricks = tricks;
+                this.team2.tricks = bid - tricks;
+            } else {
+                this.team1.tricks = bid - tricks;
+                this.team2.tricks = tricks;
+            }
         },
         updateScore () {
             //TODO case of "capot" (162)
             //TODO case of equal tricks
-            let score1 = this.team1.belote;
-            let score2 = this.team2.belote;
+            let score1 = this.team1.der + this.team1.tricks + this.team1.belote;
+            let score2 = this.team2.der + this.team2.tricks + this.team2.belote;
     
             if (this.team1.contracted) {
-                const score = this.team1.der + this.team1.tricks;
-                if (score > this.bid) {
-                    score1 += score;
-                    score2 += this.team2.tricks + this.team2.der;
-                } else {
-                    score2 += this.team2.tricks + this.team2.der;
+                if (score1 < this.bid) {
+                    score1 = this.team1.belote;
                 }
             } else {
-                const score = this.team2.der + this.team2.tricks;
-                if (this.team2.tricks > this.bid) {
-                    score1 += this.team1.tricks + this.team1.der;
-                    score2 += score;
-                } else {
-                    score1 += this.team1.tricks + this.team1.der;
+                if (score2 < this.bid) {
+                    score2 = this.team2.belote;
                 }
             }
             this.team1.score = score1;

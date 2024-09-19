@@ -27,37 +27,26 @@ export default function Tricks (props: TricksProps) {
     //TODO remove tne up and down spinner 
     function onChange (event: React.ChangeEvent<HTMLInputElement>) {
         const value = Number (event.target.value);
-        const bid = (game.bid*2) - 10;
-        switch (event.target.id) {
-            case 'tricks1':
-                setTricks1(value);
-                setTricks2(bid - value);
-                break;
-            case 'tricks2':
-                setTricks2(value);
-                setTricks1(bid - value);
-                break;
-            default:
-                console.error('Unknown id', event.target.id, " in Tricks.onChange");
-                break;
-        }
+        const id = Number (event.target.id);
+        let localGame = game;
+        localGame.updateTricks(id, value);
+        localGame.updateScore();
+        setGame({...localGame});
     }
 
     useEffect(() => {
-        let localGame = game;
-        localGame.updateTricks(tricks1, tricks2);
-        localGame.updateScore();
-        setGame({...localGame});
-    }, [tricks1, tricks2]);
+        setTricks1 (game.team1.tricks);
+        setTricks2 (game.team2.tricks);
+    }, [game]);
 
     return (
         <GamesCard title={"Quelle est la valeur des plis réalisés ?"} >
             <Stack sx={{ width:"100%" }} direction={'row'} justifyContent={'space-evenly'}  >
-                <TextField value={tricks1} id="tricks1" label="Equipe 1" variant="filled" type="number" onChange={onChange} />
+                <TextField value={tricks1} id="1" label="Equipe 1" variant="filled" type="number" onChange={onChange} />
                 <Button onClick={openVideoCapture} variant="contained" color="primary">
                     <CameraAltIcon />
                 </Button>
-                <TextField value={tricks2} id="tricks2" label="Equipe 2" variant="filled" type="number" onChange={onChange} />
+                <TextField value={tricks2} id="2" label="Equipe 2" variant="filled" type="number" onChange={onChange} />
             </Stack>
             <VideoStreamCapture modelConfig={props.model} setPredictions={props.setPredictions} onClose={closeVideoCapture} open={openCapture} />
         </GamesCard>

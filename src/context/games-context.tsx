@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { createContext, useState } from "react";
 import { Games } from "@/types/games";
-import { initGame } from "@/types/games-class";
+import { initGame } from "@/logic/games-class";
 //import { GamesClass } from '@/types/games-class';
 
 export type GamesContextType = {

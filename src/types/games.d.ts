@@ -1,8 +1,9 @@
-import { GamesClass } from "../logic/games-class";
+import { GamesClass } from "../logic/games-logic";
 
-export type DerChoice = 1 | 2;
-export type BeloteChoice = 1 | 2 | 0;
-export type ContractChoice = 1 | 2;
+export type Teams = 1 | 2;
+export type DerChoice = Teams;
+export type BeloteChoice = Teams | 0;
+export type ContractChoice = Teams;
 
 type DerScore = 0 | 10;
 type BeloteScore = 0 | 20;

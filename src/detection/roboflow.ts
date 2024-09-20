@@ -59,7 +59,7 @@ export default function useRoboflowModel (modelConfig:ModelConfig, inferRunning:
         // Check data is available
         if (typeof videoRef !== "undefined" && videoRef !== null && videoRef.current?.video?.readyState === 4) {
           const img = new CVImage(videoRef.current?.video);
-          console.info("model", model, 'is detecting...');
+          console.debug("model", model, 'is detecting...');
           inferEngine.infer (model, img)
           .then((detections:Predictions) => {
             setPredictions(predictions => appendPredictions(predictions, detections));

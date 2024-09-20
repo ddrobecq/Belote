@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { createContext, useState } from "react";
 import { Games } from "@/types/games";
-import { initGame } from "@/logic/games-class";
+import { initGame } from "@/logic/games-logic";
 //import { GamesClass } from '@/types/games-class';
 
 export type GamesContextType = {
@@ -19,8 +19,7 @@ export default function GamesContextProvider (props:GamesContextProviderProps) {
     const [game, setGame] = useState<Games>(initGame());
 
     useEffect(() => {
-        //const { score1, score2 } = game.updateScore();
-        console.log(game, game.team1.score, game.team2.score);
+        console.debug(game, game.team1.score, game.team2.score);
     }, [game]);
 
     return (

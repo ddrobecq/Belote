@@ -3,7 +3,7 @@
 // Define the type of the card
 // The card is represented by a string of two characters
 // The first character is the rank of the card
-type Rank = "7" | "8" | "9" | "10" | "J" | "Q" | "K" | "A";
+export type Rank = "7" | "8" | "9" | "10" | "J" | "Q" | "K" | "A";
 
 // The second character is the suit of the card
 // D for Diamond = Carreaux

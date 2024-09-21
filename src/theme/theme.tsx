@@ -1,8 +1,8 @@
 'use client';
 import { Roboto } from 'next/font/google';
 import { createTheme } from '@mui/material/styles';
-//import NextLink from 'next/link';
-//import { forwardRef } from 'react';
+import NextLink from 'next/link';
+import { forwardRef } from 'react';
 import Transition from './transition';
 import { TypographyOptions } from '@mui/material/styles/createTypography';
 import { Components } from "@mui/material";
@@ -16,11 +16,9 @@ const roboto = Roboto({
   display: 'swap',
 });
 
-/*
-const LinkBehaviour = forwardRef(function LinkBehaviour(props, ref) {
+const LinkBehaviour = forwardRef<HTMLAnchorElement, Omit<React.ComponentProps<typeof NextLink>, 'ref'>>(function LinkBehaviour(props, ref) {
     return (<NextLink ref={ref} {...props} />);
 });
-*/
 
 const defaultTypography:TypographyOptions = {
   fontFamily: roboto.style.fontFamily,
@@ -44,14 +42,14 @@ const defaultTypography:TypographyOptions = {
 const defaultComponents:Components = {
   MuiLink: {
     defaultProps: {
-      //component: LinkBehaviour,
+      component: LinkBehaviour,
       color: 'inherit',
       underline: "none"
     },
   },
   MuiButtonBase: {
     defaultProps: {
-        //LinkComponent: LinkBehaviour,
+        LinkComponent: LinkBehaviour,
     }
   },
   MuiButton: {

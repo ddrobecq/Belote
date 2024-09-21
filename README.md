@@ -1,5 +1,5 @@
 # Belote
-This is a web app to calculate scores when playing to Belote card game
+This is a web app to calculate scores when playing to Belote card score
 
 # Getting Started
 

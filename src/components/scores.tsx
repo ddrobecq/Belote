@@ -10,9 +10,8 @@ import Contract from './contract';
 import Tricks from './tricks';
 import { createModelConfig } from '@/detection/roboflow';
 
-export default function GameResult () {
+export default function Score () {
     const model = useMemo(() => createModelConfig(), []);
-  
   
     return (
         <Stack direction={'column'} spacing={1} >

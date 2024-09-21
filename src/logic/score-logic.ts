@@ -1,11 +1,12 @@
 import { Suit } from '@/types/cards';
-import { Games, BeloteChoice, DerChoice, ContractChoice } from '@/types/games';
+import { Scores, BeloteChoice, DerChoice, ContractChoice } from '@/types/scores';
 
 const defaultBid = 81;
 const beloteBid = 91;
+//TODO manage the valat case
 const valatBid = 162;
 
-export function initGame(): Games {
+export function initScore(): Scores {
     return {
         trump: null,
         bid: defaultBid,

@@ -8,8 +8,8 @@ export default function Header() {
             <Image
             src="/drobs.jpg"
             alt="Drobs Logo"
-            width={180}
-            height={180}
+            width={120}
+            height={120}
             priority
             />
         </Stack>

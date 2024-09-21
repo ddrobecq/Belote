@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { createContext, useEffect, useState } from "react";
-import useLocalStorage from "drobs-local-storage-react";
+import useLocalStorage from "@drobs/local-storage-react";
 import { ThemeProvider } from "@emotion/react";
 import { CssBaseline } from '@mui/material';
 import { darkTheme, lightTheme } from "@/theme/theme";

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import React from "react";
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
 import ThemeModeContextProvider from '@/theme/theme-context';
-import Footer from "@/app/home/footer";
+import Menu from "@/app/home/menu";
 import Header from "@/app/home/header";
 import { Stack } from "@mui/material";
 
@@ -21,7 +21,7 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
             <Stack margin={1} >
               {children}
             </Stack>
-            <Footer />
+            <Menu />
           </ThemeModeContextProvider>
         </AppRouterCacheProvider>
       </body>

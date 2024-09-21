@@ -1,12 +1,12 @@
 import { Stack, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
-import GamesCard from "./games-card";
-import { BeloteChoice } from '@/types/games';
-import { GamesContext, GamesContextType } from "@/context/games-context";
+import ScoreCard from "./score-card";
+import { BeloteChoice } from '@/types/scores';
+import { ScoreContext, ScoreContextType } from "@/context/score-context";
 
 export default function Belote () {
     const [belote, setBelote] = useState<BeloteChoice>(0);
-    const { game, setGame } = useContext(GamesContext) as GamesContextType;
+    const { score, setScore } = useContext(ScoreContext) as ScoreContextType;
 
     function onChange (event: React.MouseEvent<HTMLElement>, value: BeloteChoice) {
         if (value !== null) {
@@ -16,14 +16,14 @@ export default function Belote () {
     }
 
     useEffect(() => {
-        let localGame = game;
-        localGame.updateBelote(belote);
-        localGame.updateScore();
-        setGame({...localGame});
+        let localScore = score;
+        localScore.updateBelote(belote);
+        localScore.updateScore();
+        setScore({...localScore});
     }, [belote]);
 
     return (
-        <GamesCard title={'Quelle équipe a annoncé la Belote ?'}>
+        <ScoreCard title={'Quelle équipe a annoncé la Belote ?'}>
             <ToggleButtonGroup exclusive value={belote} onChange={onChange} color='primary'>
                 <Stack sx={{ width:"100%" }} direction={'row'} justifyContent={'space-evenly'} >
                     <ToggleButton value={1} >Equipe 1</ToggleButton>
@@ -31,6 +31,6 @@ export default function Belote () {
                     <ToggleButton value={2} >Equipe 2</ToggleButton>
                 </Stack>
             </ToggleButtonGroup>
-        </GamesCard>
+        </ScoreCard>
     );
 }

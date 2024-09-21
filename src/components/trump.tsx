@@ -1,8 +1,8 @@
 import { Suit } from '@/types/cards';
 import { Stack, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
-import GamesCard from './games-card';
-import { GamesContext, GamesContextType } from '@/context/games-context';
+import ScoreCard from './score-card';
+import { ScoreContext, ScoreContextType } from '@/context/score-context';
 
 const trumps = [
     {
@@ -29,7 +29,7 @@ const trumps = [
 
 export default function TrumpToggle () {
     const [trump, setTrump] = useState<Suit | null >(null);
-    const { game, setGame } = useContext(GamesContext) as GamesContextType;
+    const { score, setScore } = useContext(ScoreContext) as ScoreContextType;
 
     function onChange (event: React.MouseEvent<HTMLElement>, value: Suit) {
         if (value !== null) {
@@ -40,15 +40,15 @@ export default function TrumpToggle () {
 
     useEffect(() => {
         if (trump !== null) {
-            let localGame = game;
-            localGame.updateTrump(trump);
-            localGame.updateScore();
-            setGame({...localGame});
+            let localScore = score;
+            localScore.updateTrump(trump);
+            localScore.updateScore();
+            setScore({...localScore});
         }
     }, [trump]);
 
     return (
-        <GamesCard title={"Quel était l'Atout ?"}>
+        <ScoreCard title={"Quel était l'Atout ?"}>
         <ToggleButtonGroup exclusive value={trump} onChange={onChange} >
             <Stack sx={{ width:"100%" }} direction={'row'} justifyContent={'space-evenly'} >
                 {trumps.map((element) => (
@@ -58,6 +58,6 @@ export default function TrumpToggle () {
                 ))}
             </Stack>
         </ToggleButtonGroup>
-        </GamesCard>
+        </ScoreCard>
     )    
 }

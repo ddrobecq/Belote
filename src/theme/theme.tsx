@@ -7,6 +7,8 @@ import Transition from './transition';
 import { TypographyOptions } from '@mui/material/styles/createTypography';
 import { Components } from "@mui/material";
 
+export const _STORAGE_KEY_THEME_MODE = 'ThemeMode';
+export const _DEFAULT_THEME_MODE = 'dark';
 
 const roboto = Roboto({
   weight: ['300', '400', '500', '700'],

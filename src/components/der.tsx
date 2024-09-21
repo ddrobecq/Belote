@@ -1,19 +1,19 @@
 import { Stack, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
-import GamesCard from "./games-card";
-import { DerChoice } from '@/types/games';
-import { GamesContext, GamesContextType } from "@/context/games-context";
+import ScoreCard from "./score-card";
+import { DerChoice } from '@/types/scores';
+import { ScoreContext, ScoreContextType } from "@/context/score-context";
 
 export default function Der () {
     const [der, setDer] = useState<DerChoice | null>(null);
-    const { game, setGame } = useContext(GamesContext) as GamesContextType;
+    const { score, setScore } = useContext(ScoreContext) as ScoreContextType;
 
     useEffect(() => {
         if (der !== null) {
-            let localGame = game;
-            localGame.updateDer(der);
-            localGame.updateScore();
-            setGame ({...localGame});
+            let localScore = score;
+            localScore.updateDer(der);
+            localScore.updateScore();
+            setScore ({...localScore});
         } 
     }, [der]);
 
@@ -25,13 +25,13 @@ export default function Der () {
     }
 
     return (
-        <GamesCard title={"Qui a remporté le Dix de Der ?"} >
+        <ScoreCard title={"Qui a remporté le Dix de Der ?"} >
             <ToggleButtonGroup exclusive value={der} onChange={onChange} color='primary'>
                 <Stack sx={{ width:"100%" }} direction={'row'} justifyContent={'space-evenly'} >
                     <ToggleButton value={1} >Equipe 1</ToggleButton>
                     <ToggleButton value={2} >Equipe 2</ToggleButton>
                 </Stack>
             </ToggleButtonGroup>
-        </GamesCard>
+        </ScoreCard>
     );
 }

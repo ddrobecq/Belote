@@ -1,13 +1,13 @@
 import { IconButton, InputAdornment, OutlinedInput, Stack } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
-import GamesCard from "./games-card";
+import ScoreCard from "./score-card";
 import VideoStreamCapture from "./video-capture";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
-import { GamesContext, GamesContextType } from "@/context/games-context";
+import { ScoreContext, ScoreContextType } from "@/context/score-context";
 import { Predictions } from "inferencejs";
-import { Card } from "@/types/cards";
+import { Card, Suit } from "@/types/cards";
 import cardsExtraction from "@/detection/cards-extraction";
-import { Teams } from "@/types/games";
+import { Teams } from "@/types/scores";
 
 type TricksProps = {
     model: any
@@ -18,12 +18,12 @@ export default function Tricks (props: TricksProps) {
     const [tricks2, setTricks2] = useState<number>(0);
     const [predictions1, setPredictions1] = useState<Predictions>([]);
     const [predictions2, setPredictions2] = useState<Predictions>([]);
-    const { game, setGame } = useContext(GamesContext) as GamesContextType;
+    const { score, setScore } = useContext(ScoreContext) as ScoreContextType;
 
     function extractPredictions (predictions: Predictions) {
         let total = 0;
         if (predictions1.length > 0) {
-            const trump = game.trump;
+            const trump = score.trump as Suit;
             const cards = cardsExtraction(predictions, trump);
             cards?.forEach((card:Card) => {
                 total += card.value;
@@ -52,24 +52,24 @@ export default function Tricks (props: TricksProps) {
     }
 
     function updateTricks (team: Teams, value: number) {
-        let localGame = game;
-        localGame.updateTricks(team, value);
-        localGame.updateScore();
-        setGame({...localGame});
+        let localScore = score;
+        localScore.updateTricks(team, value);
+        localScore.updateScore();
+        setScore({...localScore});
     }
 
     useEffect(() => {
-        setTricks1 (game.team1.tricks);
-        setTricks2 (game.team2.tricks);
-    }, [game]);
+        setTricks1 (score.team1.tricks);
+        setTricks2 (score.team2.tricks);
+    }, [score]);
 
     return (
-        <GamesCard title={"Quelle est la valeur des plis réalisés ?"} >
+        <ScoreCard title={"Quelle est la valeur des plis réalisés ?"} >
             <Stack sx={{ width:"100%" }} direction={'row'} justifyContent={'space-evenly'}  >
                 <OutlinedInput id={'1'} value={tricks1} type="number" onChange={onChange} endAdornment={<VideoCaptureAdorment id={1} setPredictions={setPredictions1} model={props.model} />} label={"Equipe 1"} />
                 <OutlinedInput id={'2'} value={tricks2} type="number" onChange={onChange} endAdornment={<VideoCaptureAdorment id={2} setPredictions={setPredictions2} model={props.model} />} label={"Equipe 2"} />
             </Stack>
-        </GamesCard>
+        </ScoreCard>
     );
 }
 

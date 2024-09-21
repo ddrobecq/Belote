@@ -1,12 +1,12 @@
 import { Stack, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
-import GamesCard from "./games-card";
-import { ContractChoice } from '@/types/games';
-import { GamesContext, GamesContextType } from "@/context/games-context";
+import ScoreCard from "./score-card";
+import { ContractChoice } from '@/types/scores';
+import { ScoreContext, ScoreContextType } from "@/context/score-context";
 
 export default function Contract () {
     const [contract, setContract] = useState<ContractChoice | null>(null);
-    const { game, setGame } = useContext(GamesContext) as GamesContextType;
+    const { score, setScore } = useContext(ScoreContext) as ScoreContextType;
 
     function onChange (event: React.MouseEvent<HTMLElement>, value: ContractChoice) {
         if (value !== null) {
@@ -17,21 +17,21 @@ export default function Contract () {
 
     useEffect(() => {
         if (contract !== null) {
-            let localGame = game;
-            localGame.updateContract(contract);
-            localGame.updateScore();
-            setGame ({...localGame});
+            let localScore = score;
+            localScore.updateContract(contract);
+            localScore.updateScore();
+            setScore ({...localScore});
         } 
     }, [contract]);
 
     return (
-        <GamesCard title={"Qui a pris ?"} >
+        <ScoreCard title={"Qui a pris ?"} >
             <ToggleButtonGroup exclusive value={contract} onChange={onChange} color='primary'>
                 <Stack sx={{ width:"100%" }} direction={'row'} justifyContent={'space-evenly'} >
                     <ToggleButton value={1} >Equipe 1</ToggleButton>
                     <ToggleButton value={2} >Equipe 2</ToggleButton>
                 </Stack>
             </ToggleButtonGroup>
-        </GamesCard>
+        </ScoreCard>
     );
 }

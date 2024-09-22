@@ -1,6 +1,6 @@
 import { Divider, Stack } from '@mui/material';
-import Version from './components/version';
-import SettingsTheme from './components/settings-theme';
+import Version from '@/app/settings/components/version';
+import SettingsTheme from '@/app/settings/components/settings-theme';
 
 export default function Settings () {
     return(

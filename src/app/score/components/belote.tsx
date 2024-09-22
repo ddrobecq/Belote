@@ -1,8 +1,8 @@
 import { Stack, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
-import ScoreCard from "./score-card";
-import { BeloteChoice } from '@/types/scores';
-import { ScoreContext, ScoreContextType } from "@/context/score-context";
+import ScoreCard from "@/app/score/components/score-card";
+import { BeloteChoice, Score } from '@/logic/scores';
+import { ScoreContext, ScoreContextType } from "@/app/score/components/score-context";
 
 export default function Belote () {
     const [belote, setBelote] = useState<BeloteChoice>(0);
@@ -16,7 +16,7 @@ export default function Belote () {
     }
 
     useEffect(() => {
-        let localScore = score;
+        let localScore = new Score(score);
         localScore.updateBelote(belote);
         localScore.updateScore();
         setScore({...localScore});

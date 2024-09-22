@@ -1,8 +1,9 @@
-import { Suit } from '@/types/cards';
-import { Stack, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
-import ScoreCard from './score-card';
-import { ScoreContext, ScoreContextType } from '@/context/score-context';
+import { Stack, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
+import { Suit } from '@/detection/cards';
+import ScoreCard from '@/app/score/components/score-card';
+import { ScoreContext, ScoreContextType } from '@/app/score/components/score-context';
+import { Score } from '@/logic/scores';
 
 const trumps = [
     {
@@ -40,7 +41,7 @@ export default function TrumpToggle () {
 
     useEffect(() => {
         if (trump !== null) {
-            let localScore = score;
+            let localScore = new Score(score);
             localScore.updateTrump(trump);
             localScore.updateScore();
             setScore({...localScore});

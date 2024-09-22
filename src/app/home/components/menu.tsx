@@ -1,10 +1,11 @@
 'use client';
 
-import React, { SyntheticEvent } from 'react';
+import React, { SyntheticEvent, useState } from 'react';
 import { BottomNavigation, BottomNavigationAction, Box, Divider } from "@mui/material";
-import { useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import AssessmentOutlinedIcon from '@mui/icons-material/AssessmentOutlined';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import HomeIcon from '@mui/icons-material/Home';
 import { useTheme } from '@mui/material/styles';
 
@@ -29,11 +30,11 @@ export default function Menu () {
             showLabels
             value={value}
             onChange={handleChangeMenu} >
+                <BottomNavigationAction value={'/stat'} label="Statistiques" icon={<AssessmentOutlinedIcon />} />
                 <BottomNavigationAction value={'/'} label="Jouer" icon={<HomeIcon />} />
+                <BottomNavigationAction value={'/users'} label="Joueurs" icon={<PeopleAltIcon />} />
                 <BottomNavigationAction value={'/settings'} label="Paramètres" icon={<SettingsOutlinedIcon />} />
             </BottomNavigation>
         </Box>
     );
 }
-//<BottomNavigationAction value={'/users'} label="Joueurs" icon={<PeopleAltIcon />} />
-//<BottomNavigationAction value={'/users/1'} label="Statisques" icon={<AssessmentOutlinedIcon />} />

@@ -1,13 +1,13 @@
 import { IconButton, InputAdornment, OutlinedInput, Stack } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
-import ScoreCard from "./score-card";
-import VideoStreamCapture from "./video-capture";
-import CameraAltIcon from "@mui/icons-material/CameraAlt";
-import { ScoreContext, ScoreContextType } from "@/context/score-context";
 import { Predictions } from "inferencejs";
-import { Card, Suit } from "@/types/cards";
+import ScoreCard from "@/app/score/components/score-card";
+import VideoStreamCapture from "@/app/score/components/video-capture";
+import CameraAltIcon from "@mui/icons-material/CameraAlt";
+import { ScoreContext, ScoreContextType } from "@/app/score/components/score-context";
+import { Card, Suit } from "@/detection/cards";
 import cardsExtraction from "@/detection/cards-extraction";
-import { Teams } from "@/types/scores";
+import { Score, Teams } from "@/logic/scores";
 
 type TricksProps = {
     model: any
@@ -19,6 +19,7 @@ export default function Tricks (props: TricksProps) {
     const [predictions1, setPredictions1] = useState<Predictions>([]);
     const [predictions2, setPredictions2] = useState<Predictions>([]);
     const { score, setScore } = useContext(ScoreContext) as ScoreContextType;
+    const disabled = score.checkDisability();
 
     function extractPredictions (predictions: Predictions) {
         let total = 0;
@@ -52,7 +53,7 @@ export default function Tricks (props: TricksProps) {
     }
 
     function updateTricks (team: Teams, value: number) {
-        let localScore = score;
+        let localScore = new Score(score);
         localScore.updateTricks(team, value);
         localScore.updateScore();
         setScore({...localScore});
@@ -64,10 +65,12 @@ export default function Tricks (props: TricksProps) {
     }, [score]);
 
     return (
-        <ScoreCard title={"Quelle est la valeur des plis réalisés ?"} >
+        <ScoreCard title={"Quelle est la valeur des plis réalisés ?"} disabled={disabled} >
             <Stack sx={{ width:"100%" }} direction={'row'} justifyContent={'space-evenly'}  >
-                <OutlinedInput id={'1'} value={tricks1} type="number" onChange={onChange} endAdornment={<VideoCaptureAdorment id={1} setPredictions={setPredictions1} model={props.model} />} label={"Equipe 1"} />
-                <OutlinedInput id={'2'} value={tricks2} type="number" onChange={onChange} endAdornment={<VideoCaptureAdorment id={2} setPredictions={setPredictions2} model={props.model} />} label={"Equipe 2"} />
+                <OutlinedInput id={'1'} value={tricks1} disabled={disabled} type="number" onChange={onChange} label={"Equipe 1"}
+                    endAdornment={<VideoCaptureAdorment id={1} disabled={disabled} setPredictions={setPredictions1} model={props.model} />} />
+                <OutlinedInput id={'2'} value={tricks2} disabled={disabled} type="number" onChange={onChange} label={"Equipe 2"}
+                    endAdornment={<VideoCaptureAdorment id={2} disabled={disabled} setPredictions={setPredictions2} model={props.model} />} />
             </Stack>
         </ScoreCard>
     );
@@ -77,6 +80,7 @@ type VideoCaptureAdormentProps = {
     id: number,
     model: any,
     setPredictions: (predictions: Predictions) => void
+    disabled?: boolean
 }
 
 function VideoCaptureAdorment (props:VideoCaptureAdormentProps) {
@@ -93,7 +97,7 @@ function VideoCaptureAdorment (props:VideoCaptureAdormentProps) {
     return (
         <Stack >
             <InputAdornment position="end">
-                <IconButton onClick={openVideoCapture}>
+                <IconButton onClick={openVideoCapture} disabled={props.disabled} >
                     <CameraAltIcon />
                 </IconButton>
             </InputAdornment>

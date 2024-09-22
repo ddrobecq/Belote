@@ -81,6 +81,13 @@ const defaultComponents:Components = {
       },
     },
   },
+  MuiDivider: {
+    styleOverrides: {
+      root: {
+        borderColor: "#eeeeee"
+      },
+    },
+  },
 };
 
 

@@ -1,4 +1,4 @@
-import { Cards, Card, Rank, Suit } from '@/types/cards';
+import { Cards, Card, Rank, Suit } from '@/detection/cards';
 import { Predictions } from 'inferencejs';
 
 export default function cardsExtraction (predictions:Predictions, trump:Suit):Cards {

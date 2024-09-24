@@ -35,7 +35,7 @@ export type IScore = {
 
 export class Score implements IScore {
     trump = null as Suit|null;
-    bid = 0;
+    bid = defaultBid;
     team1 = {
         belote: 0 as BeloteScore,
         der: 0 as DerScore,
@@ -52,9 +52,12 @@ export class Score implements IScore {
     };
     //TODO fix the formula
     checkDisability = () => {
-        return false;
-        return (this.trump === null);// || this.bid === 0 );
-        //|| (this.team1.der === 0 && this.team2.der === 0) || (!this.team1.contracted && !this.team1.contracted) );
+        return (
+            (!this.team1.contracted && !this.team2.contracted) //no contractor selected
+            || (this.team1.der === 0 && this.team2.der === 0) //no der selected
+            //TODO understand why this.trump is not evaluated in checkDisability
+            //|| (this.trump === null) //no trump selected
+        );
     };
 
     constructor (init?: IScore) {
@@ -114,7 +117,6 @@ export class Score implements IScore {
 
     updateTricks (team: number, tricks: number) {
         const bid = 162-10;
-        //bid = (this.bid*2) - 10;
         if (team === 1) {
             this.team1.tricks = tricks;
             this.team2.tricks = bid - tricks;

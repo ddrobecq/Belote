@@ -19,7 +19,8 @@ export default function Tricks (props: TricksProps) {
     const [predictions1, setPredictions1] = useState<Predictions>([]);
     const [predictions2, setPredictions2] = useState<Predictions>([]);
     const { score, setScore } = useContext(ScoreContext) as ScoreContextType;
-    const disabled = score.checkDisability();
+    //TODO understand why this.trump is not evaluated in checkDisability
+    const disabled = score.checkDisability() || score.trump === null;
 
     function extractPredictions (predictions: Predictions) {
         let total = 0;

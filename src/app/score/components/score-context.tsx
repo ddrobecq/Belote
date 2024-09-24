@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { createContext, useState } from "react";
-import { IScore, Score } from "@/logic/scores";
+import { initScore, Score } from "@/logic/scores";
 
 export type ScoreContextType = {
-    score: IScore,
-    setScore: (score: IScore) => void
+    score: Score,
+    setScore: (score: Score) => void
 }
 
 export const ScoreContext = createContext<ScoreContextType | null >(null);
@@ -14,7 +14,7 @@ type ScoreContextProviderProps = {
 }
 
 export default function ScoreContextProvider (props:ScoreContextProviderProps) {
-    const [score, setScore] = useState<IScore>(new Score());
+    const [score, setScore] = useState<Score>(initScore()); 
 
     useEffect(() => {
         console.debug(score, score.team1.score, score.team2.score);

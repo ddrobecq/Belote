@@ -9,12 +9,12 @@ import Belote from "@/app/score/components/belote";
 import Contract from '@/app/score/components/contract';
 import Tricks from '@/app/score/components/tricks';
 import { createModelConfig } from '@/detection/roboflow';
-import { IScore, Score } from '@/logic/scores';
+import { initScore, Score } from '@/logic/scores';
 import { ScoreContext, ScoreContextType } from './components/score-context';
 
 type ScoreProps = {
     open: boolean,
-    onClose: (score:IScore) => void
+    onClose: (score:Score) => void
 }
 
 export default function ScoreDialog (props: ScoreProps) {
@@ -22,7 +22,7 @@ export default function ScoreDialog (props: ScoreProps) {
     const model = useMemo(() => createModelConfig(), []);
 
     function onClose() {
-        const temp = new Score(score);
+        const temp = initScore(score);
         props.onClose(temp);
     }
     

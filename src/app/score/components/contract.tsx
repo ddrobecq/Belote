@@ -1,7 +1,7 @@
 import { Stack, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import ScoreCard from "@/app/score/components/score-card";
-import { ContractChoice, Score } from '@/logic/scores';
+import { ContractChoice, initScore } from '@/logic/scores';
 import { ScoreContext, ScoreContextType } from "@/app/score/components/score-context";
 
 export default function Contract () {
@@ -17,7 +17,7 @@ export default function Contract () {
 
     useEffect(() => {
         if (contract !== null) {
-            let localScore = new Score(score);
+            let localScore = initScore (score);
             localScore.updateContract(contract);
             localScore.updateScore();
             setScore ({...localScore});

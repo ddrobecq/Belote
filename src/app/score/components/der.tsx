@@ -1,7 +1,7 @@
 import { Stack, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import ScoreCard from "@/app/score/components/score-card";
-import { DerChoice, Score } from '@/logic/scores';
+import { DerChoice, initScore } from '@/logic/scores';
 import { ScoreContext, ScoreContextType } from "@/app/score/components/score-context";
 
 export default function Der () {
@@ -10,7 +10,7 @@ export default function Der () {
 
     useEffect(() => {
         if (der !== null) {
-            let localScore = new Score(score);
+            let localScore = initScore(score);
             localScore.updateDer(der);
             localScore.updateScore();
             setScore ({...localScore});

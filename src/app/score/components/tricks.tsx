@@ -7,7 +7,7 @@ import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import { ScoreContext, ScoreContextType } from "@/app/score/components/score-context";
 import { Card, Suit } from "@/detection/cards";
 import cardsExtraction from "@/detection/cards-extraction";
-import { Score, Teams } from "@/logic/scores";
+import { initScore, Teams } from "@/logic/scores";
 
 type TricksProps = {
     model: any
@@ -19,8 +19,7 @@ export default function Tricks (props: TricksProps) {
     const [predictions1, setPredictions1] = useState<Predictions>([]);
     const [predictions2, setPredictions2] = useState<Predictions>([]);
     const { score, setScore } = useContext(ScoreContext) as ScoreContextType;
-    //TODO understand why this.trump is not evaluated in checkDisability
-    const disabled = score.checkDisability() || score.trump === null;
+    const disabled = score.checkDisability();
 
     function extractPredictions (predictions: Predictions) {
         let total = 0;
@@ -54,7 +53,7 @@ export default function Tricks (props: TricksProps) {
     }
 
     function updateTricks (team: Teams, value: number) {
-        let localScore = new Score(score);
+        let localScore = initScore(score);
         localScore.updateTricks(team, value);
         localScore.updateScore();
         setScore({...localScore});

@@ -11,10 +11,12 @@ export const ScoreContext = createContext<ScoreContextType | null >(null);
 
 type ScoreContextProviderProps = {
     children: React.ReactNode
+    team1: string,
+    team2: string
 }
 
 export default function ScoreContextProvider (props:ScoreContextProviderProps) {
-    const [score, setScore] = useState<Score>(initScore()); 
+    const [score, setScore] = useState<Score>(initScore(props.team1, props.team2)); 
 
     useEffect(() => {
         console.debug(score, score.team1.score, score.team2.score);

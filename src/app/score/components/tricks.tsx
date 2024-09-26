@@ -7,7 +7,7 @@ import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import { ScoreContext, ScoreContextType } from "@/app/score/components/score-context";
 import { Card, Suit } from "@/detection/cards";
 import cardsExtraction from "@/detection/cards-extraction";
-import { initScore, Teams } from "@/logic/scores";
+import { Teams } from "@/logic/scores";
 
 type TricksProps = {
     model: any
@@ -53,7 +53,7 @@ export default function Tricks (props: TricksProps) {
     }
 
     function updateTricks (team: Teams, value: number) {
-        let localScore = initScore(score);
+        let localScore = score;
         localScore.updateTricks(team, value);
         localScore.updateScore();
         setScore({...localScore});
@@ -65,11 +65,11 @@ export default function Tricks (props: TricksProps) {
     }, [score]);
 
     return (
-        <ScoreCard title={"Quelle est la valeur des plis réalisés ?"} disabled={disabled} >
+        <ScoreCard title={"Valeur des plis réalisés ?"} disabled={disabled} >
             <Stack sx={{ width:"100%" }} direction={'row'} justifyContent={'space-evenly'}  >
-                <OutlinedInput id={'1'} value={tricks1} disabled={disabled} type="number" onChange={onChange} label={"Equipe 1"}
+                <OutlinedInput id={'1'} value={tricks1} disabled={disabled} type="number" onChange={onChange} label={"{score.team1.name}"}
                     endAdornment={<VideoCaptureAdorment id={1} disabled={disabled} setPredictions={setPredictions1} model={props.model} />} />
-                <OutlinedInput id={'2'} value={tricks2} disabled={disabled} type="number" onChange={onChange} label={"Equipe 2"}
+                <OutlinedInput id={'2'} value={tricks2} disabled={disabled} type="number" onChange={onChange} label={"{score.team2.name}"}
                     endAdornment={<VideoCaptureAdorment id={2} disabled={disabled} setPredictions={setPredictions2} model={props.model} />} />
             </Stack>
         </ScoreCard>

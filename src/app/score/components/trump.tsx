@@ -3,7 +3,6 @@ import { Stack, ToggleButton, ToggleButtonGroup, Typography } from '@mui/materia
 import { Suit } from '@/detection/cards';
 import ScoreCard from '@/app/score/components/score-card';
 import { ScoreContext, ScoreContextType } from '@/app/score/components/score-context';
-import { initScore } from '@/logic/scores';
 
 const trumps = [
     {
@@ -41,7 +40,7 @@ export default function TrumpToggle () {
 
     useEffect(() => {
         if (trump !== null) {
-            let localScore = initScore(score);
+            let localScore = score;
             localScore.updateTrump(trump);
             localScore.updateScore();
             setScore({...localScore});

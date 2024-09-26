@@ -11,7 +11,7 @@ export default function ScoreCard (props:ScoresCardProps) {
   const color = disabled ? 'disabled' : 'primary';
 
   return (
-    <Card sx={{ padding:1 }} >
+    <Card sx={{ padding:1 }} variant={'outlined'} >
         <Typography variant={'body1'} color={color}>{props.title}</Typography >
         <Divider />
         <Stack marginTop={1} >

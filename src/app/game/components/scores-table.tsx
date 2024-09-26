@@ -29,8 +29,8 @@ export default function ScoresTable(props:ScoreProps) {
             </Stack>
             <Divider />
             <Stack direction={'row'} justifyContent={'space-evenly'}>
-                <ScoreBox score={props.game.team1.total} total best={(props.game.team1.total > props.game.team2.total)} />
-                <ScoreBox score={props.game.team2.total} total best={(props.game.team1.total < props.game.team2.total)} />
+                <ScoreBox score={props.game.team1.total} total best={(props.game.team1.total >= props.game.team2.total)} />
+                <ScoreBox score={props.game.team2.total} total best={(props.game.team1.total <= props.game.team2.total)} />
             </Stack>
         </Stack>
     )

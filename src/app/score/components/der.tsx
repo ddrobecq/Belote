@@ -1,7 +1,7 @@
 import { Stack, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import ScoreCard from "@/app/score/components/score-card";
-import { DerChoice, initScore } from '@/logic/scores';
+import { DerChoice } from '@/logic/scores';
 import { ScoreContext, ScoreContextType } from "@/app/score/components/score-context";
 
 export default function Der () {
@@ -10,7 +10,7 @@ export default function Der () {
 
     useEffect(() => {
         if (der !== null) {
-            let localScore = initScore(score);
+            let localScore = score;
             localScore.updateDer(der);
             localScore.updateScore();
             setScore ({...localScore});
@@ -28,8 +28,8 @@ export default function Der () {
         <ScoreCard title={"Qui a remporté le Dix de Der ?"} >
             <ToggleButtonGroup exclusive value={der} onChange={onChange} color='primary'>
                 <Stack sx={{ width:"100%" }} direction={'row'} justifyContent={'space-evenly'} >
-                    <ToggleButton value={1} >Equipe 1</ToggleButton>
-                    <ToggleButton value={2} >Equipe 2</ToggleButton>
+                    <ToggleButton value={1} >{score.team1.name}</ToggleButton>
+                    <ToggleButton value={2} >{score.team2.name}</ToggleButton>
                 </Stack>
             </ToggleButtonGroup>
         </ScoreCard>

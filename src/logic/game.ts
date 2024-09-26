@@ -1,4 +1,4 @@
-import { IScore } from "@/logic/scores";
+import { Score } from "@/logic/scores";
 
 const defaultTarget = 1000;
 
@@ -12,20 +12,20 @@ export type IGame = {
         name: string,
         total: number,
     }
-    scores: IScore[],
+    scores: Score[],
 }
 
 export class Game implements IGame {
     target = defaultTarget;
     team1 = {
-        name: "Eux",
+        name: "Elles",
         total: 0
     };
     team2 = {
-        name: "Nous",
+        name: "Ils",
         total: 0
     };
-    scores = [] as IScore[];
+    scores = [] as Score[];
 
     constructor (init?: IGame) {
         Object.assign(this, init);

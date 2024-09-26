@@ -1,7 +1,7 @@
 import { Stack, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import ScoreCard from "@/app/score/components/score-card";
-import { ContractChoice, initScore } from '@/logic/scores';
+import { ContractChoice } from '@/logic/scores';
 import { ScoreContext, ScoreContextType } from "@/app/score/components/score-context";
 
 export default function Contract () {
@@ -17,7 +17,7 @@ export default function Contract () {
 
     useEffect(() => {
         if (contract !== null) {
-            let localScore = initScore (score);
+            let localScore = score;
             localScore.updateContract(contract);
             localScore.updateScore();
             setScore ({...localScore});
@@ -28,8 +28,8 @@ export default function Contract () {
         <ScoreCard title={"Qui a pris ?"} >
             <ToggleButtonGroup exclusive value={contract} onChange={onChange} color='primary'>
                 <Stack sx={{ width:"100%" }} direction={'row'} justifyContent={'space-evenly'} >
-                    <ToggleButton value={1} >Equipe 1</ToggleButton>
-                    <ToggleButton value={2} >Equipe 2</ToggleButton>
+                    <ToggleButton value={1} >{score.team1.name}</ToggleButton>
+                    <ToggleButton value={2} >{score.team2.name}</ToggleButton>
                 </Stack>
             </ToggleButtonGroup>
         </ScoreCard>

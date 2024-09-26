@@ -9,37 +9,44 @@ import Belote from "@/app/score/components/belote";
 import Contract from '@/app/score/components/contract';
 import Tricks from '@/app/score/components/tricks';
 import { createModelConfig } from '@/detection/roboflow';
-import { initScore, Score } from '@/logic/scores';
+import { Score } from '@/logic/scores';
 import { ScoreContext, ScoreContextType } from './components/score-context';
+import Capot from './components/capot';
 
 type ScoreProps = {
     open: boolean,
-    onClose: (score:Score) => void
+    onClose: (score:Score | null) => void
 }
 
 export default function ScoreDialog (props: ScoreProps) {
-    const { score, setScore } = useContext(ScoreContext) as ScoreContextType;
+    const { score,  } = useContext(ScoreContext) as ScoreContextType;
     const model = useMemo(() => createModelConfig(), []);
 
     function onClose() {
-        const temp = initScore(score);
+        const temp = score;
         props.onClose(temp);
+    }
+
+    function onCancel() {
+        props.onClose(null);
     }
     
     return (
         <Dialog open={props.open} onClose={onClose}>
             <DialogTitle>Nouveau score</DialogTitle>
             <DialogContent>
-                <Stack direction={'column'} spacing={1} >
+                <Stack direction={'column'} spacing={0} >
                     <Contract />
                     <Trump />
                     <Der />
                     <Belote />
+                    <Capot />
                     <Tricks model={model} />
                 </Stack>
             </DialogContent>
             <DialogActions>
-                <Button onClick={onClose}>Fermer</Button>
+            <Button onClick={onCancel} color={'error'} >Annuler</Button>
+            <Button onClick={onClose} disabled={score.checkDisability()} color={'success'} >Valider</Button>
             </DialogActions>
         </Dialog>
     )

@@ -3,7 +3,7 @@ import { Suit } from "@/detection/cards";
 const defaultBid = 81;
 const beloteBid = 91;
 const capotScore = 252; 
-//TODO manage the valat case
+export const maxTricks = 152;
 
 export type Teams = 1 | 2;
 export type DerChoice = Teams;

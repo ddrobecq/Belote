@@ -5,10 +5,10 @@ import { Button, Stack } from "@mui/material";
 import ScoreDialog from "@/app/score/score-dialog";
 import ScoreContextProvider from "@/app/score/components/score-context";
 import { Score } from "@/logic/scores";
-import { Game } from "@/logic/game";
+import Game from "@/logic/game";
 import ScoresTable from "./components/scores-table";
 
-export default function Page() {
+export default function GameScoreCard() {
     const [ game, setGame ] = useState<Game>(new Game());
     const [ openScore, setOpenScore ] = useState(false);
 
@@ -21,13 +21,13 @@ export default function Page() {
         if (score) {
             const tempScore:Score = {...score, team1: {...score.team1}, team2: {...score.team2}};
             const newScores = [...game.scores, {...tempScore}];
-            const newGame = new Game(game);
+            let newGame = new Game();
+            newGame = game;
             newGame.scores = [...newScores];
             //Calculate the total scores
-            newGame.team1.total = newGame.scores.reduce((acc, score) => acc + score.team1.score, 0);
-            newGame.team2.total = newGame.scores.reduce((acc, score) => acc + score.team2.score, 0);
+            newGame.calculateTotalScores();
             //Update the game
-            setGame({...newGame});
+            setGame(newGame);
         }
     }
 

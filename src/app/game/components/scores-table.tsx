@@ -1,5 +1,5 @@
-import { Game } from "@/logic/game"
-import { IScore } from "@/logic/scores"
+import Game from "@/logic/game"
+import { Score } from "@/logic/scores"
 import { Box, Divider, Stack, Typography, useTheme } from "@mui/material"
 
 type ScoreProps = {
@@ -17,7 +17,7 @@ export default function ScoresTable(props:ScoreProps) {
                 <Typography variant="h2">{team2}</Typography>
             </Stack>
             <Stack >
-                {scores.map ((score:IScore, index:number) => {
+                {scores.map ((score:Score, index:number) => {
                     return (
                         <Stack key={index} direction={'row'} justifyContent={'space-evenly'}>
                             <ScoreBox score={score.team1.score} />

@@ -20,4 +20,4 @@ declare module 'inferencejs' {
     };
   
     export type Predictions = Prediction[];
-  }
+}

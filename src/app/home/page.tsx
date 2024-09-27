@@ -1,10 +1,10 @@
 'use client';
 
 import React from 'react';
-import Game from '../game/page';
+import GameScoreCard from '../game/page';
 
 export default function Home(): React.ReactNode {
   return (
-    <Game />
+    <GameScoreCard />
   )
 }

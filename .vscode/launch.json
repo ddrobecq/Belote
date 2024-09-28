@@ -10,12 +10,12 @@
             "name": "Chrome",
             "url": "http://localhost:3000",
             "webRoot": "${workspaceFolder}",
+            "userDataDir": "${env:HOME}/.vscode/chrome-debug-userdatadir",
+            "resolveSourceMapLocations": [
+                "${workspaceFolder}/out/**/*.js", 
+                "!/node_modules/**"
+            ]
         },
     ]
 }
 
-//"userDataDir": "${env:HOME}/.vscode/chrome-debug-userdatadir",
-//"resolveSourceMapLocations": [
-//    "${workspaceFolder}/out/**/*.js", 
-//    "!/node_modules/**"
-//]

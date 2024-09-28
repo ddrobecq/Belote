@@ -147,7 +147,6 @@ export function initScore (team1?:string, team2?:string):Score {
                 score1 = this.team1.belote;
                 score2 = capotScore;
             } else {
-                //TODO case of equal tricks
                 score1 = this.team1.der + this.team1.tricks + this.team1.belote;
                 score2 = this.team2.der + this.team2.tricks + this.team2.belote;
 

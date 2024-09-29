@@ -1,12 +1,12 @@
 declare module 'inferencejs' {
     export class InferenceEngine {
       constructor();
-      infer(model:any, image: CVImage): Promise<Predictions>;
-      startWorker(model: string, version: string, apiKey: string): Promise<void>;
+      infer(_model:string, _image: CVImage): Promise<Predictions>;
+      startWorker(_model: string, _version: string, _apiKey: string): Promise<void>;
     }
   
     export class CVImage {
-      constructor(imageData: HTMLImageElement | HTMLCanvasElement | ImageBitmap | HTMLVideoElement);
+      constructor(_imageData: HTMLImageElement | HTMLCanvasElement | ImageBitmap | HTMLVideoElement);
     }
   
     export type Prediction = {

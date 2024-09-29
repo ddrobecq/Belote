@@ -1,3 +1,4 @@
+import React from "react";
 import { Card, Divider, Stack, Typography } from "@mui/material"
 
 type ScoresCardProps = {
@@ -7,18 +8,18 @@ type ScoresCardProps = {
 }
 
 export default function ScoreCard (props:ScoresCardProps) {
-  const disabled = props.disabled || false;
-  const color = disabled ? 'disabled' : 'primary';
+	const disabled = props.disabled || false;
+	const color = disabled ? 'disabled' : 'primary';
 
-  return (
-    <Card sx={{ padding:1 }} variant={'outlined'} >
-        <Typography variant={'body1'} color={color}>{props.title}</Typography >
-        <Divider />
-        <Stack marginTop={1} >
-            { props.children }
-        </Stack>
-    </Card>
-  )
+	return (
+		<Card sx={{ padding:1 }} variant={'outlined'} >
+			<Typography variant={'body1'} color={color}>{props.title}</Typography >
+			<Divider />
+			<Stack marginTop={1} >
+				{ props.children }
+			</Stack>
+		</Card>
+	)
 }
 
 

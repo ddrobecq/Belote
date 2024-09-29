@@ -15,40 +15,40 @@ import Capot from './components/capot';
 
 type ScoreProps = {
     open: boolean,
-    onClose: (score:Score | null) => void
+    onClose: (_score:Score | null) => void
 }
 
 export default function ScoreDialog (props: ScoreProps) {
-    const { score,  } = useContext(ScoreContext) as ScoreContextType;
-    const model = useMemo(() => createModelConfig(), []);
+	const { score,  } = useContext(ScoreContext) as ScoreContextType;
+	const model = useMemo(() => createModelConfig(), []);
 
-    function onClose() {
-        const temp = score;
-        props.onClose(temp);
-    }
+	function onClose() {
+		const temp = score;
+		props.onClose(temp);
+	}
 
-    function onCancel() {
-        props.onClose(null);
-    }
+	function onCancel() {
+		props.onClose(null);
+	}
     
-    return (
-        <Dialog open={props.open} onClose={onClose}>
-            <DialogTitle>Nouveau score</DialogTitle>
-            <DialogContent>
-                <Stack direction={'column'} spacing={0} >
-                    <Contract />
-                    <Trump />
-                    <Der />
-                    <Belote />
-                    <Capot />
-                    <Tricks model={model} />
-                </Stack>
-            </DialogContent>
-            <DialogActions>
-            <Button onClick={onCancel} color={'error'} >Annuler</Button>
-            <Button onClick={onClose} disabled={score.checkDisability()} color={'success'} >Valider</Button>
-            </DialogActions>
-        </Dialog>
-    )
+	return (
+		<Dialog open={props.open} onClose={onClose}>
+			<DialogTitle>Nouveau score</DialogTitle>
+			<DialogContent>
+				<Stack direction={'column'} spacing={0} >
+					<Contract />
+					<Trump />
+					<Der />
+					<Belote />
+					<Capot />
+					<Tricks model={model} />
+				</Stack>
+			</DialogContent>
+			<DialogActions>
+				<Button onClick={onCancel} color={'error'} >Annuler</Button>
+				<Button onClick={onClose} disabled={score.checkDisability()} color={'success'} >Valider</Button>
+			</DialogActions>
+		</Dialog>
+	)
 }
 

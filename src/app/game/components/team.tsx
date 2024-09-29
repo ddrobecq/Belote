@@ -1,3 +1,4 @@
+import React from "react";
 import { Typography } from "@mui/material";
 
 type TeamProps = {
@@ -5,7 +6,7 @@ type TeamProps = {
 };
 
 export default function Team(props: TeamProps) {
-    return (
-        <Typography variant="h1">{props.name}</Typography>
-    );
+	return (
+		<Typography variant="h1">{props.name}</Typography>
+	);
 }

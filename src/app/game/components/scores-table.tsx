@@ -1,5 +1,5 @@
 import React from "react";
-import Game from "@/logic/game"
+import { Game } from "@/logic/game"
 import { Score } from "@/logic/scores"
 import { Box, Divider, Stack, Typography, useTheme } from "@mui/material"
 

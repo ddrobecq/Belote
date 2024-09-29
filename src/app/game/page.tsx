@@ -1,16 +1,15 @@
 'use client';
 
-import React from 'react';
-import { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Stack } from "@mui/material";
 import ScoreDialog from "@/app/score/score-dialog";
 import ScoreContextProvider from "@/app/score/components/score-context";
 import { Score } from "@/logic/scores";
-import Game from "@/logic/game";
-import ScoresTable from "./components/scores-table";
+import ScoresTable from "@/app/game/components/scores-table";
+import { GameContext, GameContextType } from '@/app/game/components/game-context';
 
 export default function GameScoreCard() {
-	const [ game, setGame ] = useState<Game>(new Game());
+	const { game, setGame } = useContext(GameContext) as GameContextType;
 	const [ openScore, setOpenScore ] = useState(false);
 
 	function openScoreDialog() {
@@ -22,13 +21,13 @@ export default function GameScoreCard() {
 		if (score) {
 			const tempScore:Score = {...score, team1: {...score.team1}, team2: {...score.team2}};
 			const newScores = [...game.scores, {...tempScore}];
-			let newGame = new Game();
+			let newGame = game;
 			newGame = game;
 			newGame.scores = [...newScores];
 			//Calculate the total scores
 			newGame.calculateTotalScores();
 			//Update the game
-			setGame(newGame);
+			setGame ({...newGame, scores: [...newGame.scores]});
 		}
 	}
 

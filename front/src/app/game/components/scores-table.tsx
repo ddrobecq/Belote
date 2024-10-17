@@ -1,21 +1,35 @@
-import React from "react";
-import { Game } from "@/logic/game"
+import React, { useContext } from "react";
+import { Game, Team } from "@/logic/game"
 import { Score } from "@/logic/scores"
 import { Box, Divider, Stack, Typography, useTheme } from "@mui/material"
+import ScoresTeam from "@/app/game/components/scores-teams";
+import { GameContext, GameContextType } from "@/app/game/components/game-context";
 
-type ScoreProps = {
+type ScoresTableProps = {
     game: Game
 }
 
-export default function ScoresTable(props:ScoreProps) {
+export default function ScoresTable(props:ScoresTableProps) {
 	const scores = props.game.scores;
-	const team1 = props.game.team1.name;
-	const team2 = props.game.team2.name;
+	const team1 = props.game.team1;
+	const team2 = props.game.team2;
+	const { game, setGame } = useContext(GameContext) as GameContextType;
+
+	function handleChangeTeam (id:number, newTeam:Team) {
+		let newGame = game;
+		if (id === 1) {
+			newGame = {...game, team1: newTeam};
+		} else {
+			newGame = {...game, team2: newTeam};
+		}
+		setGame(newGame);
+	}
+
 	return (
 		<Stack direction={'column'} spacing={2} >
 			<Stack direction={'row'} justifyContent={'space-evenly'}>
-				<Typography variant="h2">{team1}</Typography>
-				<Typography variant="h2">{team2}</Typography>
+				<ScoresTeam id={1} team={team1} onChange={handleChangeTeam} />
+				<ScoresTeam id={2} team={team2} onChange={handleChangeTeam} />
 			</Stack>
 			<Stack >
 				{scores.map ((score:Score, index:number) => {

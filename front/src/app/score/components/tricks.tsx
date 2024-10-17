@@ -81,9 +81,9 @@ export default function Tricks (props: TricksProps) {
 			{error && <Error message={error} onClick={onCloseError} />}
 			<ScoreCard title={"Valeur des plis réalisés ?"} disabled={disabled} >
 				<Stack sx={{ width:"100%" }} direction={'row'} justifyContent={'space-evenly'}  >
-					<OutlinedInput id={'1'} value={tricks1} disabled={disabled} type="number" onChange={onChange} label={"{score.team1.name}"}
+					<OutlinedInput id={'1'} value={tricks1} disabled={disabled} type="number" onChange={onChange} label={score.team1.name}
 						endAdornment={<VideoCaptureAdorment id={1} disabled={disabled} setPredictions={setPredictions1} model={props.model} />} />
-					<OutlinedInput id={'2'} value={tricks2} disabled={disabled} type="number" onChange={onChange} label={"{score.team2.name}"}
+					<OutlinedInput id={'2'} value={tricks2} disabled={disabled} type="number" onChange={onChange} label={score.team2.name}
 						endAdornment={<VideoCaptureAdorment id={2} disabled={disabled} setPredictions={setPredictions2} model={props.model} />} />
 				</Stack>
 			</ScoreCard>

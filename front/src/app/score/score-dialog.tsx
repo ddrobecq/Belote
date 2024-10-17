@@ -45,8 +45,8 @@ export default function ScoreDialog (props: ScoreProps) {
 				</Stack>
 			</DialogContent>
 			<DialogActions>
-				<Button onClick={onCancel} color={'error'} >Annuler</Button>
 				<Button onClick={onClose} disabled={score.checkDisability()} color={'success'} >Valider</Button>
+				<Button onClick={onCancel} color={'error'} >Annuler</Button>
 			</DialogActions>
 		</Dialog>
 	)

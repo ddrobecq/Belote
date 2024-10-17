@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@drobs/local-storage-react": "1.1.5",
+    "@drobs/users": "1.1.0",
     "@emotion/cache": "11.13.0",
     "@emotion/react": "11.13.0",
     "@emotion/styled": "11.13.0",

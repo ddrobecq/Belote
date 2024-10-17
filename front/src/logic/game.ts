@@ -2,16 +2,18 @@ import { Score } from "@/logic/scores";
 
 const defaultTarget = 1000;
 
+export type Team = {
+	id: number;
+	name: string;
+	player1Id: number;
+	player2Id: number;
+	total: number;
+}
+
 export type Game = {
 	target: number;
-	team1: {
-        name: string,
-        total: number,
-    };
-	team2: {
-        name: string,
-        total: number,
-    };
+	team1: Team;
+	team2: Team;
 	scores: Score[];
 	calculateTotalScores: () => void;
 }
@@ -20,11 +22,17 @@ export function initGame (team1?:string, team2?:string):Game {
 	return ({
 		target: defaultTarget,
 		team1: {
+			id: 1, //TODO : to be initialized with the id from the database
 			name: team1 || "Eux",
+			player1Id: 1, //TODO : to be initialized with the id from the database
+			player2Id: 2, //TODO : to be initialized with the id from the database
 			total: 0
 		},
 		team2: {
+			id: 2, //TODO : to be initialized with the id from the database
 			name: team2 || "Nous",
+			player1Id: 3, //TODO : to be initialized with the id from the database
+			player2Id: 4, //TODO : to be initialized with the id from the database
 			total: 0
 		},
 		scores: [] as Score[],
